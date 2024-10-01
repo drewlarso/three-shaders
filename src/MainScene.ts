@@ -1,4 +1,4 @@
-import juliaShader from './shaders/julia.glsl?raw'
+import mandelbrotShader from './shaders/mandelbrot.glsl?raw'
 import {
     Clock,
     Mesh,
@@ -24,8 +24,9 @@ export default class MainScene extends Scene {
             uniforms: {
                 time: { value: 0 },
                 resolution: { value: new Vector2() },
+                maxIterations: { value: 100 },
             },
-            fragmentShader: juliaShader,
+            fragmentShader: mandelbrotShader,
         })
         this.camera = camera
     }
@@ -45,7 +46,7 @@ export default class MainScene extends Scene {
         this.material.uniforms.time.value = elapsedTime
         this.material.uniforms.resolution.value.set(
             window.innerWidth,
-            window.innerHeight
+            window.innerHeight,
         )
     }
 }
