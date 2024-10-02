@@ -1,10 +1,17 @@
 import './style.css'
 import MainScene from './MainScene'
-import { OrthographicCamera, WebGLRenderer } from 'three'
+import { WebGLRenderer } from 'three'
+import CustomScene from './scenes/CustomScene'
+import MandelbrotScene from './scenes/MandelbrotScene'
 
-const camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1)
-const scene = new MainScene(camera)
-scene.init()
+const mainScene: CustomScene = new MainScene()
+mainScene.init()
+
+const mandelbrotScene: CustomScene = new MandelbrotScene()
+mandelbrotScene.init()
+
+let currentScene = mainScene
+
 const renderer = new WebGLRenderer({
     canvas: document.querySelector('#app') as HTMLCanvasElement,
 })
@@ -15,8 +22,8 @@ addEventListener('resize', (_) => {
 })
 
 function tick() {
-    scene.update()
-    renderer.render(scene, camera)
+    currentScene.update()
+    renderer.render(currentScene, currentScene.camera)
     requestAnimationFrame(tick)
 }
 
